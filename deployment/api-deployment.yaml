@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-kubernetes-api-deployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: ml-kubernetes-api
+  template:
+    metadata:
+      labels:
+        app: ml-kubernetes-api
+    spec:
+      containers:
+      - image: tanawitp/ml-kubernetes-api
+        name: ml-kubernetes-api
+        ports:
+        - containerPort: 5000
