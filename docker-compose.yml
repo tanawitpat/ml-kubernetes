@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  api:
+    build:
+      context: ../api
+    container_name: ml-kubernetes-api
+    restart: always
+    networks:
+      - ml-kubernetes
+    environment:
+      - FLASK_HOST=0.0.0.0
+      - FLASK_PORT=5000
+    ports:
+      - "5000:5000"
+
+  logic-md-00001:
+    build:
+      context: ../logic/MD-00001
+    container_name: ml-kubernetes-logic-md-00001
+    restart: always
+    networks:
+      - ml-kubernetes
+    environment:
+      - FLASK_HOST=0.0.0.0
+      - FLASK_PORT=5000
+    ports:
+      - "5001:5000"
+
+networks:
+  ml-kubernetes:
+    driver: bridge
