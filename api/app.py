@@ -1,5 +1,7 @@
 import os
+
 import requests
+import yaml
 
 from flask import Flask, request, json, Response
 
@@ -7,6 +9,8 @@ FLASK_HOST = os.getenv("FLASK_HOST", "0.0.0.0")
 FLASK_PORT = int(os.getenv("FLASK_PORT", 5000))
 
 app = Flask(__name__)
+
+logic_config = yaml.load(open("configs/logic.yml"), Loader=yaml.FullLoader)
 
 @app.route("/ping", methods=["GET"])
 def ping():
@@ -19,9 +23,18 @@ def ping():
 
 @app.route("/logic", methods=["POST"])
 def endpoint_logic():
+    api_request = request.json
+    if api_request["logic_id"] not in logic_config:
+        response = Response({},
+            status=400,
+            mimetype="application/json"
+        )
+        return response
+    logic_endpoint_path = logic_config[api_request["logic_id"]]["endpoint"]
+
     logic_endpoint_request = request.json
     logic_endpoint_response = requests.post(
-        url="{}/submit_data".format("http://localhost:5001"),
+        url="{}/submit_data".format(logic_endpoint_path),
         data=json.dumps(logic_endpoint_request),
         headers={"content-type": "application/json"},
         verify=False,
