@@ -19,3 +19,5 @@ spec:
         - containerPort: 5000
       - image: tanawitp/ml-kubernetes-logic-md00001
         name: ml-kubernetes-logic-md00001
+        ports:
+        - containerPort: 5001
