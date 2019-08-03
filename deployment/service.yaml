@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ml-kubernetes-api-service
+  name: ml-kubernetes
 spec:
   type: LoadBalancer
   ports:
   - port: 50000
     targetPort: 5000
   selector:
-    app: ml-kubernetes-api
+    app: ml-kubernetes
