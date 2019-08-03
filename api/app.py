@@ -17,8 +17,8 @@ def ping():
     response.headers['Access-Control-Allow-Origin'] = '*'
     return response
 
-@app.route("/get_logic_output", methods=["POST"])
-def get_logic_output():
+@app.route("/logic", methods=["POST"])
+def endpoint_logic():
     logic_endpoint_request = request.json
     logic_endpoint_response = requests.post(
         url="{}/submit_data".format("http://localhost:5001"),

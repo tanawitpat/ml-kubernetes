@@ -2,7 +2,7 @@ GET http://localhost:5000/ping
 
 ###
 
-POST http://localhost:5000/get_logic_output
+POST http://localhost:5000/logic
 content-type: application/json
 
 {
