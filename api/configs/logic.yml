@@ -1,2 +1,2 @@
 MD_00001:
-  endpoint: http://localhost:5001
+  endpoint: http://ml-kubernetes-logic-md00001-service:5000

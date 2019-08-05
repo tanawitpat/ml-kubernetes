@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-kubernetes-logic-md00001-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ml-kubernetes-logic-md00001
+  template:
+    metadata:
+      labels:
+        app: ml-kubernetes-logic-md00001
+    spec:
+      containers:
+      - image: tanawitp/ml-kubernetes-logic-md00001
+        name: ml-kubernetes-logic-md00001
