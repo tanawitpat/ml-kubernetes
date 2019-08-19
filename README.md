@@ -1,6 +1,8 @@
 # ML Kubernetes
 
-## Command
+ML Kubernetes is a project for learning deployment on Google Kubernetes Engine (GKE). The services will predict if an arbitrary passenger on Titanic would survive the sinking (https://www.kaggle.com/c/titanic). 
+
+## Commands
 ```
 ## Build docker images
 make build
