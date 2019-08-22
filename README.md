@@ -4,6 +4,7 @@ ML Kubernetes is a project for learning deployment on Google Kubernetes Engine (
 
 ## To-do
 - [ ] Blue/Green deployment
+- [ ] Setup Jenkins
 
 ## Commands
 ```
