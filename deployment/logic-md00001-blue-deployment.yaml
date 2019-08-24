@@ -1,48 +1,46 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ml-kubernetes-api-deployment
+  name: ml-kubernetes-logic-md00001-blue-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: ml-kubernetes-api
+      app: ml-kubernetes-logic-md00001-blue
   template:
     metadata:
       labels:
-        app: ml-kubernetes-api
+        app: ml-kubernetes-logic-md00001-blue
     spec:
       containers:
-      - image: tanawitp/ml-kubernetes-api
-        name: ml-kubernetes-api
-        ports:
-        - containerPort: 5000
+      - image: tanawitp/ml-kubernetes-logic-md00001
+        name: ml-kubernetes-logic-md00001
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: ml-kubernetes-api
+  name: ml-kubernetes-logic-md00001-blue
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
-  - port: 50000
+  - port: 5000
     targetPort: 5000
   selector:
-    app: ml-kubernetes-api
+    app: ml-kubernetes-logic-md00001-blue
 
 ---
 
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: ml-kubernetes-api-hpa
+  name: ml-kubernetes-logic-md00001-blue-hpa
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: ml-kubernetes-api
+    name: ml-kubernetes-logic-md00001-blue
   minReplicas: 1
   maxReplicas: 2
   metrics:

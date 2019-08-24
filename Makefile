@@ -1,6 +1,14 @@
 config ?= config.env
 include $(config)
 
+gen_deployment_blue_green:
+	$(foreach service, ${SERVICES}, \
+		cp deployment/${service}-deployment.yaml.template deployment/${service}-blue-deployment.yaml && \
+		cp deployment/${service}-deployment.yaml.template deployment/${service}-green-deployment.yaml && \
+		sed -i "" 's/$${SERVICE_TYPE}/'blue'/g' deployment/${service}-blue-deployment.yaml && \
+		sed -i "" 's/$${SERVICE_TYPE}/'green'/g' deployment/${service}-green-deployment.yaml; \
+	)
+
 build: 
 	docker build api -t ${DOCKER_REGISTRY_PATH}/$(APP_NAME)-api
 	docker build logic/MD_00001 -t ${DOCKER_REGISTRY_PATH}/$(APP_NAME)-logic-md00001

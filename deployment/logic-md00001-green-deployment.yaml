@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-kubernetes-logic-md00001-green-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ml-kubernetes-logic-md00001-green
+  template:
+    metadata:
+      labels:
+        app: ml-kubernetes-logic-md00001-green
+    spec:
+      containers:
+      - image: tanawitp/ml-kubernetes-logic-md00001
+        name: ml-kubernetes-logic-md00001
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ml-kubernetes-logic-md00001-green
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5000
+    targetPort: 5000
+  selector:
+    app: ml-kubernetes-logic-md00001-green
+
+---
+
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ml-kubernetes-logic-md00001-green-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ml-kubernetes-logic-md00001-green
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 70
