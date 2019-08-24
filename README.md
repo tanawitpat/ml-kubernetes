@@ -17,8 +17,13 @@ make run
 ## Push docker images to Docker Hub
 make release
 
+## Apply Kubernetes configs
+make apply SERVICE_TYPE=blue
+make apply SERVICE_TYPE=green
+
 ## Deploy the services to Google Kubernetes Engine
-make deploy
+make deploy SERVICE_TYPE=blue
+make deploy SERVICE_TYPE=green
 ```
 
 ## Sample Requests
