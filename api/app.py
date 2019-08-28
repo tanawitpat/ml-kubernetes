@@ -10,7 +10,18 @@ FLASK_PORT = int(os.getenv("FLASK_PORT", 5000))
 
 app = Flask(__name__)
 
-logic_config = yaml.load(open("configs/logic.yml"), Loader=yaml.FullLoader)
+logic_config_local = yaml.load(open("configs/logic.yml"), Loader=yaml.FullLoader)
+
+logic_config = {
+    "MD_00001": {
+        "endpoint": os.getenv("LOGIC_MD_00001_ENDPOINT", logic_config_local["MD_00001"])
+    },
+    "MD_00002": {
+        "endpoint": os.getenv("LOGIC_MD_00002_ENDPOINT", logic_config_local["MD_00002"])
+    }
+}
+
+print("Logic config: {}".format(logic_config))
 
 @app.route("/ping", methods=["GET"])
 def ping():
