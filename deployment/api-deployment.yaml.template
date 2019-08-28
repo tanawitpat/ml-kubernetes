@@ -1,3 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ml-kubernetes-api-config
+data:
+  # Logic Configs
+  LOGIC_MD_00001_ENDPOINT: "http://ml-kubernetes-logic-md00001-${SERVICE_TYPE}:5000"
+  LOGIC_MD_00002_ENDPOINT: "http://ml-kubernetes-logic-md00002-${SERVICE_TYPE}:5000"
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,6 +28,9 @@ spec:
         name: ml-kubernetes-api
         ports:
         - containerPort: 5000
+        envFrom:
+          - configMapRef:
+              name: ml-kubernetes-api-config
 
 ---
 
