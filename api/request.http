@@ -1,10 +1,10 @@
 ### Pingpong
 
-GET http://localhost:5000/ping
+GET http://localhost:50000/ping
 
 ### MD_00001
 
-POST http://localhost:5000/logic
+POST http://localhost:50000/logic
 content-type: application/json
 
 {
@@ -33,7 +33,7 @@ content-type: application/json
 
 ### MD_00002
 
-POST http://localhost:5000/logic
+POST http://localhost:50000/logic
 content-type: application/json
 
 {
