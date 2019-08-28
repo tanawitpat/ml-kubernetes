@@ -14,7 +14,7 @@ def submit_data():
     """ Request
         {
             "request_id": "16fd2706-8baf-433b-82eb-8c7fada847da",
-            "logic_id": "MD_00001",
+            "logic_id": "MD_00002",
             "data": [
                 {
                     "passenger_id": "A00001",
@@ -39,7 +39,7 @@ def submit_data():
     """ Response
         {
             "request_id": "16fd2706-8baf-433b-82eb-8c7fada847da",
-            "logic_id": "MD_00001",
+            "logic_id": "MD_00002",
             "prediction": [
                 {
                     "passenger_id": "A00001",

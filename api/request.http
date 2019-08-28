@@ -1,6 +1,8 @@
+### Pingpong
+
 GET http://localhost:5000/ping
 
-###
+### MD_00001
 
 POST http://localhost:5000/logic
 content-type: application/json
@@ -8,6 +10,35 @@ content-type: application/json
 {
     "request_id": "16fd2706-8baf-433b-82eb-8c7fada847da",
     "logic_id": "MD_00001",
+    "data": [
+        {
+            "passenger_id": "A00001",
+            "sex": "male",
+            "sib_sp": 0,
+            "parch": 0,
+            "fare": 15.0,
+            "embarked": "S",
+            "p_class": "2"
+        },{
+            "passenger_id": "A00002",
+            "sex": "female",
+            "sib_sp": 2,
+            "parch": 1,
+            "fare": 30.0,
+            "embarked": "S",
+            "p_class": "1"
+        }
+    ] 
+}
+
+### MD_00002
+
+POST http://localhost:5000/logic
+content-type: application/json
+
+{
+    "request_id": "16fd2706-8baf-433b-82eb-8c7fada847da",
+    "logic_id": "MD_00002",
     "data": [
         {
             "passenger_id": "A00001",
