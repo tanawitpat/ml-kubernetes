@@ -12,14 +12,14 @@ gen_deployment_blue_green:
 	$(call generate_deployment_blue_green_service,api)
 
 	$(foreach logic_service, ${LOGIC_SERVICES}, \
-		$(call generate_deployment_blue_green_service,${logic_service}) \
+		$(call generate_deployment_blue_green_service,logic-${logic_service}) \
 	)
 
 build:
 	docker build api -t ${DOCKER_REGISTRY_PATH}/${APP_NAME}-api
 
 	$(foreach logic_service, ${LOGIC_SERVICES}, \
-		docker build logic/MD_00001 -t ${DOCKER_REGISTRY_PATH}/${APP_NAME}-${logic_service} \
+		docker build logic/${logic_service} -t ${DOCKER_REGISTRY_PATH}/${APP_NAME}-logic-${logic_service}; \
 	)
 
 start_api:
@@ -35,12 +35,12 @@ start_api:
 
 start_logic:
 	$(foreach logic_service, ${LOGIC_SERVICES}, \
-		docker container rm -f ${APP_NAME}-${logic_service}; \
+		docker container rm -f ${APP_NAME}-logic-${logic_service}; \
 		docker run \
 			-d \
 			--name ${APP_NAME}-${logic_service} \
 			--network ml-kubernetes \
-			${DOCKER_REGISTRY_PATH}/${APP_NAME}-${logic_service}; \
+			${DOCKER_REGISTRY_PATH}/${APP_NAME}-logic-${logic_service}; \
 	)
 
 run: start_api start_logic
@@ -49,14 +49,14 @@ release: build
 	docker push ${DOCKER_REGISTRY_PATH}/${APP_NAME}-api
 
 	$(foreach logic_service, ${LOGIC_SERVICES}, \
-		docker push ${DOCKER_REGISTRY_PATH}/${APP_NAME}-${logic_service} \
+		docker push ${DOCKER_REGISTRY_PATH}/${APP_NAME}-logic-${logic_service}; \
 	)
 
 apply:
 	kubectl apply -f deployment/api-${SERVICE_TYPE}-deployment.yaml
 
 	$(foreach logic_service, ${LOGIC_SERVICES}, \
-		kubectl apply -f deployment/${logic_service}-${SERVICE_TYPE}-deployment.yaml \
+		kubectl apply -f deployment/logic-${logic_service}-${SERVICE_TYPE}-deployment.yaml; \
 	)
 
 deploy: release apply

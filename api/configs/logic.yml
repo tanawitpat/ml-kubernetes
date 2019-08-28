@@ -1,2 +1,4 @@
 MD_00001:
   endpoint: http://ml-kubernetes-logic-md00001:5000
+MD_00002:
+  endpoint: http://ml-kubernetes-logic-md00002:5000
